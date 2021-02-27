@@ -1,0 +1,148 @@
+#cart {
+  position: fixed;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  background: lightgrey;
+  height: 100vh;
+  @media (max-width: 560px) {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 0;
+  }
+  .buy{
+    @media (max-width: 560px) {
+      height: 100%;
+      width: 100%;
+      display: inline-block;
+      position: relative;
+      padding-bottom: 20px;
+    }
+    padding-top: 10px;
+    background: white;
+    height: 120px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    font-size: large;
+    font-weight: bold;
+    width: 100%;
+
+    .price{
+      margin-right: 10px;
+      display: block;
+      float: right;
+    }
+    .labelBuy{
+      margin-left: 10px;
+      display: block;
+      float: left;
+    }
+    .buyButton{
+      font-size: x-large;
+      height: 50px;
+      margin-top: 15px;
+      margin-left: 5%;
+      width: 90%;
+      outline: 0 !important;
+    }
+  }
+}
+
+.rightPanelUpLabel {
+  height: @headerHeight;
+  background: white;
+  .labelOrder {
+    font-size: medium;
+    font-weight: bold;
+    margin-top: @headerHeight/3;
+    margin-left: 5px;
+    display: inline-block;
+  }
+  .btn {
+    font-size: xx-small;
+    padding:0;
+    margin-top: @headerHeight/3+5px;
+    margin-right: 5px;
+    display: inline-block;
+    float: right;
+  }
+}
+.buyPizza {
+  border: 0 solid darkgray;
+  border-bottom-width: 1px;
+  padding-bottom: 10px;
+  .infAboutPizza {
+    display: inline-block;
+    margin-left: 8px;
+
+    .pizzaName {
+      color: @backgroundButtonColor;
+    }
+
+    .weight {
+      margin-left: 10px;
+    }
+
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: large;
+
+      .btn {
+        height: 28px;
+        margin-right: 5px;
+        margin-left: 5px;
+        width: 28px;
+        border-radius: 50%;
+        outline: 0 !important;
+        position: relative;
+        align-items: center;
+        text-align: center;
+        text-indent: 0;
+        .label {
+          font-size: x-large;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          padding: 0;
+        }
+        .minus{
+          top: 47%;
+        }
+
+        .delete{
+          color: @backgroundButtonColor;
+          font-size: large;
+        }
+      }
+      .deleteButton{
+        margin-left: 15px;
+      }
+      .number{
+        display: inline-block;
+        font-size: medium;
+        font-weight: normal;
+      }
+    }
+  }
+  .img{
+    display: block;
+    float: right;
+    margin-top: 9px;
+    overflow: hidden;
+    position: relative;
+    height: 90px;
+    width: 45px;
+    img{
+      width: 200%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      border-radius: 50%;
+    }
+  }
+}

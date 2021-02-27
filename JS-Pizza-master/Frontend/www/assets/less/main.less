@@ -1,0 +1,71 @@
+@backgroundButtonColor: #ea862e;
+@headerHeight: 80px;
+
+.rounded-circle{
+  display: inline-block;
+  box-sizing: border-box;
+
+  font-size: medium;
+  font-weight: bold;
+
+  color: white;
+  background: @backgroundButtonColor;
+
+  padding-left: 7px;
+  padding-right: 7px;
+  border-radius: 50%;
+}
+
+.allPizzaLabel {
+  margin-top: @headerHeight;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+
+  #allPizzaText{
+    display: inline-block;
+    font-size: x-large;
+    font-weight: bold;
+  }
+}
+
+.typeOfPizza {
+  text-align: center;
+  padding-bottom: 15px;
+
+  .btn {
+    background: white;
+    color: @backgroundButtonColor;
+    border: 0;
+  }
+  .active {
+    color: white;
+    background: @backgroundButtonColor;
+  }
+}
+
+.clearfix::after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  height: 0;
+  clear: both;
+}
+
+html {
+  min-width: 560px;
+
+}
+
+.container-fluid{
+  @media (max-width: 560px) {
+    width: 100%;
+  }
+}
+
+
+@import "structure/header";
+@import "structure/footer";
+@import "structure/discount-label";
+@import "pizza/pizza-card";
+@import "pizza/cart";

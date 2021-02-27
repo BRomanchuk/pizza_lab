@@ -1,0 +1,55 @@
+.pizza-card {
+
+  .badge {
+    position: relative;
+    float: right;
+    top: -15px;
+    right: -10px;
+    font-size: large;
+    margin-bottom: -100%;
+    &.popularBadge {
+      background: darkgreen;
+    }
+    &.newBadge {
+      background: darkred;
+    }
+  }
+
+  .pizza_img {
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  h3 {
+    color: @backgroundButtonColor;
+    background-color: white;
+    font-weight: bold;
+  }
+
+  .pizza_type {
+    font-size: small;
+    font-weight: bolder;
+    color: grey;
+  }
+
+  p{
+    height: 100px;
+    @media (max-width: 1240px) {
+      height: 200px;
+    }
+  }
+
+  .size_columns{
+    box-sizing: border-box;
+  }
+  .pizza_column{
+    width: 50%;
+    text-align: center;
+    &.small_size{
+      float: right;
+    }
+    &.big_size {
+      float: left;
+    }
+  }
+}

@@ -18,28 +18,58 @@ function showPizzaList(list) {
 
         var $node = $(html_code);
 
-        $node.find(".buy-big").click(function(){
+        $node.find("#buy-big").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
         });
-        $node.find(".buy-small").click(function(){
+        $node.find("#buy-small").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Small);
         });
 
         $pizza_list.append($node);
     }
-
+    $("#allPizzas").html(list.length);
     list.forEach(showOnePizza);
 }
+$("body").find(".typeOfPizza").find("input").change(function(){
+    filterPizza(this);
+});
+
 
 function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
-
+    var idOption = $(filter).attr('id');
     Pizza_List.forEach(function(pizza){
-        //Якщо піка відповідає фільтру
-        //pizza_shown.push(pizza);
-
-        //TODO: зробити фільтри
+        switch (idOption){
+            case 'option1':
+                pizza_shown.push(pizza);
+                break;
+            case 'option2':
+                if (pizza.content.meat !== undefined){
+                    pizza_shown.push(pizza);
+                }
+                break;
+            case 'option3':
+                if (pizza.content.pineapple !== undefined){
+                    pizza_shown.push(pizza);
+                }
+                break;
+            case 'option4':
+                if (pizza.content.mushroom !== undefined){
+                    pizza_shown.push(pizza);
+                }
+                break;
+            case 'option5':
+                if (pizza.content.ocean !== undefined){
+                    pizza_shown.push(pizza);
+                }
+                break;
+            case 'option6':
+                if (pizza.content.ocean === undefined && pizza.content.meat === undefined){
+                    pizza_shown.push(pizza);
+                }
+                break;
+        }
     });
 
     //Показати відфільтровані піци
@@ -48,8 +78,7 @@ function filterPizza(filter) {
 
 function initialiseMenu() {
     //Показуємо усі піци
-    showPizzaList(Pizza_List)
+    showPizzaList(Pizza_List);
 }
-
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;

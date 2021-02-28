@@ -13,43 +13,68 @@ var PizzaSize = {
 var Cart = [];
 
 //HTML едемент куди будуть додаватися піци
-var $cart = $("#cart");
+var $cart = $(".buyPizzasList");
 
 function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
 
     //Приклад реалізації, можна робити будь-яким іншим способом
-    Cart.push({
-        pizza: pizza,
-        size: size,
-        quantity: 1
+    var contains = false;
+    getPizzaInCart().forEach(element => {
+        if (element.pizza === pizza && element.size === size){
+            contains=true;
+            element.quantity++;
+        }
     });
-
+    if (!contains) {
+        Cart.push({
+            pizza: pizza,
+            size: size,
+            quantity: 1
+        });
+    }
     //Оновити вміст кошика на сторінці
     updateCart();
 }
-
+$("#clearAll").click(function(){
+    Cart= [];
+    updateCart();
+});
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
-    //TODO: треба зробити
 
+    var ind = getPizzaInCart().indexOf(cart_item);
+    getPizzaInCart().splice(ind,1);
     //Після видалення оновити відображення
     updateCart();
 }
 
-function initialiseCart() {
-    //Фукнція віпрацьвуватиме при завантаженні сторінки
-    //Тут можна наприклад, зчитати вміст корзини який збережено в Local Storage то показати його
-    //TODO: ...
+var basil = require('basil.js');
+basil = new basil();
+exports.get= function(key) {return basil.get(key);};
+exports.set= function(key, value) {return basil.set(key, value);}
 
-    updateCart();
+function initialiseCart() {
+    if(basil.get("cartSt") !== null) {
+        Cart = basil.get("cartSt");
+        updateCart();
+    }
 }
 
 function getPizzaInCart() {
     //Повертає піци які зберігаються в кошику
     return Cart;
 }
-
+function updatePriceAndOrder() {
+    var price=0;
+    var number=0;
+    getPizzaInCart().forEach(element => {
+        price+=element.pizza[element.size].price*element.quantity;
+        number+=element.quantity;
+    });
+    $("#totalPrice").html(price+" грн");
+    $("#totalOrder").html(number);
+}
 function updateCart() {
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
@@ -63,19 +88,33 @@ function updateCart() {
 
         var $node = $(html_code);
 
-        $node.find(".plus").click(function(){
+        $node.find(".plusB").click(function(){
             //Збільшуємо кількість замовлених піц
             cart_item.quantity += 1;
-
+            $node.find(".price").html("");
+            //Оновлюємо відображення
+            updateCart();
+        });
+        $node.find(".minusB").click(function(){
+            //Збільшуємо кількість замовлених піц
+            if (cart_item.quantity>1) {
+                cart_item.quantity -= 1;
+            } else {
+                removeFromCart(cart_item);
+            }
             //Оновлюємо відображення
             updateCart();
         });
 
+        $node.find(".deleteButton").click(function(){
+            removeFromCart(cart_item);
+        });
+
         $cart.append($node);
     }
-
+    basil.set("cartSt", Cart);
+    updatePriceAndOrder();
     Cart.forEach(showOnePizzaInCart);
-
 }
 
 exports.removeFromCart = removeFromCart;

@@ -1,0 +1,34 @@
+<% include common/header.ejs %>
+
+<div class="container-fluid col-lg-9 col-md-8 col-sm-7 col-xs-6">
+    <div class="col-md-12 allPizzaLabel">
+        <div id="allPizzaText">
+            Усі піци
+        </div>
+        <div class="rounded-circle numberLabel" id="allPizzas">3</div>
+    </div>
+    <div class="typeOfPizza" data-toggle="buttons">
+        <label class="btn btn-warning active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> Усі
+        </label>
+        <label class="btn btn-warning">
+            <input type="radio" name="options" id="option2" autocomplete="off"> М'ясні
+        </label>
+        <label class="btn btn-warning">
+            <input type="radio" name="options" id="option3" autocomplete="off"> З ананасами
+        </label>
+        <label class="btn btn-warning">
+            <input type="radio" name="options" id="option4" autocomplete="off"> З грибами
+        </label>
+        <label class="btn btn-warning">
+            <input type="radio" name="options" id="option5" autocomplete="off"> З морепродуктами
+        </label>
+        <label class="btn btn-warning">
+            <input type="radio" name="options" id="option6" autocomplete="off"> Вега
+        </label>
+    </div>
+    <div class="row" id="pizza_list"></div>
+
+</div>
+
+<% include common/footer.ejs %>

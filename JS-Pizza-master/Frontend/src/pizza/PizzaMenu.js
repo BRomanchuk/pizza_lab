@@ -3,7 +3,8 @@
  */
 var Templates = require('../Templates');
 var PizzaCart = require('./PizzaCart');
-var Pizza_List = require('../Pizza_List');
+const API = require("../API");
+var Pizza_List = API.getPizzaList(initPizzaList);
 
 //HTML едемент куди будуть додаватися піци
 var $pizza_list = $("#pizza_list");
@@ -78,7 +79,85 @@ function filterPizza(filter) {
 
 function initialiseMenu() {
     //Показуємо усі піци
-    showPizzaList(Pizza_List);
+    API.getPizzaList(initPizzaList);
 }
+
+function initPizzaList(error, data) {
+    if (error == null) {
+        Pizza_List = data;
+        showPizzaList(Pizza_List);
+
+    }
+}
+
+function sendToBack(error, data) {
+
+}
+$("#exampleInputName1").keyup(function(){
+    if (this.value.length >= 6){
+        $("#name").css("color","green");
+        $("#nameError").text("");
+        document.getElementById("submit-order").disabled = false;
+
+    } else {
+        $("#name").css("color","red");
+        $("#nameError").text("Здається, ви ввели неправильне ім'я");
+        $("#nameError").css("color","red");
+        document.getElementById("submit-order").disabled = true;
+
+
+    }
+});
+
+$("#exampleInputPhone1").keyup(function(){
+    if (!this.value.match("^([0|\\+[0-9]{1,9})?([7-9][0-9]{9}[0-9])$")){
+        $("#phone").css("color","red");
+        $("#phoneError").text("Упс... Здається, ви ввели неправильний номер телефону");
+        $("#phoneError").css("color","red");
+
+        document.getElementById("submit-order").disabled = true;
+
+    }
+    else {
+        $("#phone").css("color","green");
+        $("#phoneError").text("");
+        document.getElementById("submit-order").disabled = false;
+
+    }
+});
+$("#exampleInputAddress1").keyup(function(){
+    if (this.value.length >= 4){
+        $("#address").css("color","green");
+        $("#addressError").text("");
+
+        document.getElementById("submit-order").disabled = false;
+
+    } else {
+        $("#address").css("color","red");
+        $("#addressError").text("Ну хоч тут введіть все правильно");
+        $("#addressError").css("color","red");
+
+        document.getElementById("submit-order").disabled = true;
+    }
+});
+
+$("#submit-order").click(function () {
+    var phoneNumber = $("#exampleInputPhone1").val();
+    var login = $("#exampleInputName1").val();
+    var address = $("#exampleInputAddress1").val();
+    if (phoneNumber === "" || login === "" || address === ""){
+        return;
+    }
+    console.log(phoneNumber,login,address);
+    var order_info = {
+        phoneNumber: phoneNumber,
+        login: login,
+        address: address,
+        pizzas: PizzaCart.getPizzaInCart()
+    }
+    API.createOrder(order_info, sendToBack);
+});
+
+
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;

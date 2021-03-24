@@ -16,16 +16,29 @@
         <label for="exampleInputAddress1" id="address">Адреса</label>
         <input type="text" name="address" class="form-control" id="exampleInputAddress1" placeholder="м.Київ" required>
         <label id="addressError"></label>
+        <div class="map-address">
+
+        </div>
     </div>
     <div class="order-info">
-        <b>Інформація про замовлення</b>
         <br>
-        <span><b>Приблизний час доставки:</b> невідомий</span>
+        <span>
+            <b>Приблизний час доставки:</b> <span id="delivery-time"></span>
+        </span>
         <br/>
-        <span><b>Адреса доставки</b> невідома</span>
-        <button type="submit" class="btn btn-warning" id="submit-order">Next ></button>
+        <span>
+            <b>Адреса доставки</b> <span id="delivery-address"></span>
+        </span>
+        <div id="button_div">
+            <button type="submit" class="btn btn-warning" id="submit-order">Next ></button>
+        </div>
     </div>
+    <div id="map"></div>
 </div>
-
+<script src="assets/js/map.js"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASsee3EkOJxafgqhNEQlmyO6Aen5m0tRc&callback=initMap&libraries=&v=weekly"
+    async
+></script>
 
 <% include common/footer.ejs %>

@@ -468,7 +468,27 @@ function initPizzaList(error, data) {
 }
 
 function sendToBack(error, data) {
-
+    let receipt_details = data;
+    console.log('receipt_details');
+    console.log(receipt_details);
+    if (!error) {
+        LiqPayCheckout.init({
+            data:	receipt_details.data,
+            signature:	receipt_details.signature,
+            embedTo:	"#liqpay",
+            mode:	"popup"	//	embed	||	popup
+        }).on("liqpay.callback",	function(data){
+            console.log(data.status);
+            console.log(data);
+        }).on("liqpay.ready",	function(data){
+//	ready
+        }).on("liqpay.close",	function(data){
+//	close
+        });
+    }
+    else{
+        console.log('some error');
+    }
 }
 $("#exampleInputName1").keyup(function(){
     if (this.value.length >= 6){
@@ -522,16 +542,23 @@ $("#submit-order").click(function () {
     var phoneNumber = $("#exampleInputPhone1").val();
     var login = $("#exampleInputName1").val();
     var address = $("#exampleInputAddress1").val();
-    if (phoneNumber === "" || login === "" || address === ""){
+    if (phoneNumber === "" || login === "" || address === "") {
+        console.log("//////////////////////////////////");
         return;
     }
-    console.log(phoneNumber,login,address);
+
+
+    var pizza = [];
+    PizzaCart.getPizzaInCart().forEach(element =>
+        pizza.push(element));
     var order_info = {
         phoneNumber: phoneNumber,
         login: login,
         address: address,
-        pizzas: PizzaCart.getPizzaInCart()
+        pizzas: pizza
     }
+    console.log('pizza');
+    console.log(pizza);
     API.createOrder(order_info, sendToBack);
 });
 

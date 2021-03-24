@@ -1,6 +1,10 @@
 /**
  * Created by chaika on 09.02.16.
  */
+
+const PUBLIC_KEY = 'sandbox_i92197953769';
+const PRIVATE_KEY = 'sandbox_e4zCdTQrK15rQNwJponDUuzPTaEao4w2ChDVrq4l';
+
 var Pizza_List = require('./data/Pizza_List');
 
 exports.getPizzaList = function(req, res) {
@@ -50,7 +54,7 @@ exports.createOrder = function(req, res) {
     console.log(parse_order);
     var order	=	{
         version:	3,
-        public_key:	'sandbox_i92197953769\n',
+        public_key:	PUBLIC_KEY,
         action:	"pay",
         amount:	sum,
         currency:	"UAH",
@@ -60,7 +64,7 @@ exports.createOrder = function(req, res) {
         sandbox:	1
     };
     var data	=	base64(JSON.stringify(order));
-    var signature	=	sha1('sandbox_e4zCdTQrK15rQNwJponDUuzPTaEao4w2ChDVrq4l\n' +	data +	'sandbox_e4zCdTQrK15rQNwJponDUuzPTaEao4w2ChDVrq4l\n');
+    var signature	=	sha1(PRIVATE_KEY + data + PRIVATE_KEY);
     var receipt = {
         data: data,
         signature: signature
